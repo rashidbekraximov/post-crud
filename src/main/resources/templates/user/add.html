@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{user.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{user.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/users}" class="btn btn-secondary">[[#{user.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('user')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='user', field='username', required=true)}" />
+                <div class="row mb-3">
+                    <label for="role" class="col-md-2 col-form-label" >Rol</label>
+                    <div class="col-md-10">
+                        <select id="role" name="role" class="form-select">
+                            <option disabled selected>Tanlang</option>
+                            <option value="ROLE_ADMIN">Super Admin</option>
+                            <option value="ROLE_POST_ADMIN">Post Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div th:replace="~{fragments/forms::inputRow(object='user', field='password')}" />
+                <input type="submit" th:value="#{user.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

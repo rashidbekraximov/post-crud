@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{post.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{post.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/posts/add}" class="btn btn-primary ms-2">[[#{post.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${posts.empty}">[[#{post.list.empty}]]</div>
+            <div th:if="${!posts.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{post.id.label}]]</th>
+                            <th scope="col">[[#{post.post.label}]]</th>
+                            <th scope="col">[[#{post.title.label}]]</th>
+                            <th scope="col">[[#{post.updatedDate.label}]]</th>
+                            <th scope="col">[[#{post.createDate.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="post : ${posts}">
+                            <td>[[${post.id}]]</td>
+                            <td>[[${post.user.username}]]</td>
+                            <td>[[${post.title}]]</td>
+                            <td>[[${post.updatedDate}]]</td>
+                            <td>[[${post.createDate}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen"></i></a>
+                                    <form th:action="@{/posts/delete/{id}(id=${post.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

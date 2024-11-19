@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{home.index.headline}]]</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 class="mb-4">[[#{home.index.headline}]]</h1>
+
+            <div class="row">
+                <!-- Loop through posts in Thymeleaf -->
+                <div class="col-md-4" th:each="post : ${posts}">
+                    <div class="card mb-4">
+                        <!-- Card Header with Post Title -->
+                        <div class="card-header">
+                            <h5 class="card-title" th:text="${post.title}">Post Title</h5>
+                        </div>
+
+                        <!-- Card Body with Post Content -->
+                        <div class="card-body">
+                            <p class="card-text" th:text="${post.content}">Post Content</p>
+                        </div>
+
+                        <!-- Card Footer with Author and Date -->
+                        <div class="card-footer text-muted">
+                            <p><i class="fa-solid fa-user-tie p-1"></i> Muallif: <span th:text="${post.user.username}"></span></p>
+                            <p><i class="fa-solid fa-calendar-days p-1"></i> Sana: <span th:text="${post.createDate}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

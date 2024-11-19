@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">[[#{app.title}]]</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.css" rel="stylesheet"   type="text/css"/>
+        <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+        <link th:href="@{/webjars/flatpickr/4.6.13/dist/flatpickr.min.css}" rel="stylesheet" />
+        <link th:href="@{/css/app.css}" rel="stylesheet" />
+        <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+        <script th:src="@{/webjars/flatpickr/4.6.13/dist/flatpickr.min.js}" defer></script>
+        <script th:src="@{/js/app.js}" defer></script>
+    </head>
+    <body>
+        <header class="bg-light">
+            <div class="container">
+                <nav class="navbar navbar-light navbar-expand-md">
+                    <a th:href="@{/home}" class="navbar-brand">
+<!--                        <img th:src="@{/images/logo.png}" th:alt="#{app.title}" width="30" height="30" class="d-inline-block align-top">-->
+                        <span class="ps-1 fw-bold">[[#{app.title}]]</span>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggle"
+                            th:aria-label="#{navigation.toggle}" aria-controls="navbarToggle" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggle">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="navbar-item">
+                                <a th:href="@{/home}" class="nav-link"> <i class="fa-solid fa-house p-2"></i>[[#{navigation.home}]]</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a th:href="@{/users}" class="nav-link"><i class="fa-solid fa-user p-2"></i> [[#{user.list.headline}]]</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a th:href="@{/posts}" class="nav-link"><i class="fa-solid fa-book p-2"></i>[[#{post.list.headline}]]</a>
+                            </li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="block text-gray-500 p-2">
+                                    <button type="submit" class="text-gray-500 bg-transparent border-0 cursor-pointer">
+                                        <i class="fa-solid fa-right-from-bracket p-1"></i>
+                                        <span th:text="#{navigation.logout}" class="font-bold"></span>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="my-5">
+            <div class="container">
+                <p th:if="${MSG_SUCCESS}" class="alert alert-success mb-4" role="alert">[[${MSG_SUCCESS}]]</p>
+                <p th:if="${MSG_INFO}" class="alert alert-info mb-4" role="alert">[[${MSG_INFO}]]</p>
+                <p th:if="${MSG_ERROR}" class="alert alert-danger mb-4" role="alert">[[${MSG_ERROR}]]</p>
+                <div layout:fragment="content" />
+            </div>
+        </main>
+    </body>
+</html>
